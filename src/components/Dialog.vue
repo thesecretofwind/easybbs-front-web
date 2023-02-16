@@ -1,13 +1,14 @@
 <template>
   <el-dialog
-    model-value="isShow"
+    :model-value="isShow"
     :title="title"
     :width="width"
     :show-close="isShwoClose"
     :top="top"
     :draggable="true"
     :close-on-click-modal="false"
-    custom-class="custome-dialog"
+    @close="close"
+    class="custome-dialog"
   >
     <div class="dialog-body">
       <slot></slot>
@@ -32,7 +33,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: ''
+    default: '标题'
   },
   isShwoClose: {
     type: Boolean,
@@ -53,22 +54,40 @@ const props = defineProps({
     type: Boolean,
     default: true
   }
-})
+});
 
-const dialogVisible = ref(false)
+const emit = defineEmits();
+const close = () => {
+  emit('close');
+};
 
-const handleClose = (done: () => void) => {
-  ElMessageBox.confirm('Are you sure to close this dialog?')
-    .then(() => {
-      done()
-    })
-    .catch(() => {
-      // catch error
-    })
-}
+
 </script>
-<style scoped>
-.dialog-footer button:first-child {
-  margin-right: 10px;
+
+<style lang='scss'>
+// style上不能添加scoped,不然该组件的样式传到不到子组件中
+.custome-dialog {
+
+  .el-dialog__body {
+    padding: 0;
+  }
+
+  .dialog-body {
+    min-height: 100px;
+    max-height: calc(100vh - 200px);
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    overflow: auto;
+  }
+
+  .dialog-footer {
+    text-align: right;
+    padding: 10px 20px;
+  }
+}
+
+.el-dialog__body {
+  padding: 0;
 }
 </style>

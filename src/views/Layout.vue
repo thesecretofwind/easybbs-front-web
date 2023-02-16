@@ -18,16 +18,21 @@
         </el-button>
 
         <el-button-group :style="{'margin-left': '5px'}">
-          <el-button type="primary" plain>登录</el-button>
-          <el-button type="primary" plain>注册</el-button>
+          <el-button type="primary" plain @click="loginAndRegister(0)">登录</el-button>
+          <el-button type="primary" plain @click="loginAndRegister(1)">注册</el-button>
         </el-button-group>
       </div>
-
+  <!-- <Dialog :isShow="dialogStatus" :buttons="buttons" @close="dialogStatus = false">
+    <div style="height:1500px">这是里内容</div> 
+  </Dialog> -->
       </div>
     </div>
     <div class="content">
       <router-view />
     </div>
+
+    <!-- 登录,注册 -->
+    <LoginAndRegister ref="loginRegisterRef"></LoginAndRegister>
   </div>
 </template>
 
@@ -49,7 +54,7 @@ const logonInfo = ref([
   },
   {
     letter: 's',
-    color: 'rgb(255, 186, 2);'
+    color: 'rgb(255, 186, 2)'
   },
   {
     letter: 'y',
@@ -103,9 +108,25 @@ const initScroll = () => {
   })
 };
 
+
+
+// const dialogStatus = ref(true);
+
+// const buttons = [
+//   {
+//     text: '确定',
+//     type: 'primary'
+//   }
+// ]
+const loginAndRegisterRef = ref();
+const loginAndRegister = (type) => {
+  loginAndRegisterRef.value.showPanel(type);
+}
+
 onMounted(() => {
   initScroll();
-})
+});
+
 </script>
 
 <style lang="scss" scoped>
