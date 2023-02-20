@@ -1,0 +1,26 @@
+<header>
+  <!-- <button nz-button nzType="primary">Primary Button</button>
+   -->
+   <div class="header-content">
+    <div class="menu-panel">
+      <!-- 标题logo -->
+      <a href="/">
+        <span *ngFor="let item of logoInfo" [style.color]="item.color">{{ item.letter }}</span>
+      </a>
+    </div>
+    <div class="user-info-panel">
+      <button nz-button nzType="primary">
+        <span>发帖</span>
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="primary" class="search-btn">
+        <span>搜索</span>
+        <span nz-icon nzType="search" nzTheme="outline"></span>
+      </button>
+      <nz-button-group>
+        <button nz-button plain>登录</button>
+        <button nz-button>注册</button>
+      </nz-button-group>
+    </div>
+   </div>
+</header>

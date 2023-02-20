@@ -1,0 +1,19 @@
+
+.header-content {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+
+  .menu-panel {
+    font-size: 30px;
+    display: block;
+    margin-right: 5px;
+  }
+
+  .user-info-panel {
+    .search-btn {
+      margin: 0 5px;
+    }
+  }
+}
+
