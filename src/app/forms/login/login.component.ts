@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+const api = {
+  checkCode: "/api/checkCode",
+};
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,13 +12,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   validateForm!: FormGroup;
+  passwordVisible = false;
+  checkCode: string = api.checkCode;
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      checkCode: ['', [Validators.required]],
+      remember: [false]
     });
   }
 
@@ -30,6 +36,10 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  changeCheckCodeImg() {
+    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`
   }
 
 }

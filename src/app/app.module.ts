@@ -7,7 +7,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { PlusOutline, SearchOutline } from '@ant-design/icons-angular/icons';
+import {
+  PlusOutline,
+  SearchOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  UserOutline,
+  LockOutline,
+  MailOutline,
+  SafetyOutline,
+} from '@ant-design/icons-angular/icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +27,16 @@ import { RegisterComponent } from './forms/register/register.component';
 import { LoginComponent } from './forms/login/login.component';
 import { ResetPasswordComponent } from './forms/reset-password/reset-password.component';
 
-const icons: IconDefinition[] = [ PlusOutline, SearchOutline ];
+const icons: IconDefinition[] = [
+  PlusOutline,
+  SearchOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  UserOutline,
+  LockOutline,
+  MailOutline,
+  SafetyOutline
+];
 
 @NgModule({
   declarations: [
@@ -27,7 +45,7 @@ const icons: IconDefinition[] = [ PlusOutline, SearchOutline ];
     HeaderComponent,
     RegisterComponent,
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +57,6 @@ const icons: IconDefinition[] = [ PlusOutline, SearchOutline ];
     NzIconModule.forChild(icons),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
