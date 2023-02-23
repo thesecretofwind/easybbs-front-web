@@ -65,7 +65,9 @@ export class RegisterComponent implements OnInit {
     e.preventDefault();
   }
 
-  openDialog(){
+  openDialog(evnet:MouseEvent){
+    evnet.preventDefault();
+    event?.stopPropagation();
     this.validateForm.reset();
     const emailControl = this.validateForm.controls.email;
     if (emailControl.invalid) {
