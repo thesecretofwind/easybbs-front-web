@@ -1,0 +1,70 @@
+<form
+  nz-form
+  [formGroup]="validateForm"
+  (ngSubmit)="submitForm()"
+  class="login-form"
+>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入正确的邮箱">
+      <nz-input-group nzPrefixIcon="mail" nzSize="large">
+        <input
+          type="email"
+          nz-input
+          formControlName="email"
+          placeholder="请输入邮箱"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入正确的密码">
+      <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate" nzSize="large">
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          nz-input
+          placeholder="请输入密码"
+          formControlName="password"
+        />
+      </nz-input-group>
+      <ng-template #suffixTemplate>
+        <span
+          nz-icon
+          [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+          nzTheme="outline"
+          (click)="passwordVisible = !passwordVisible"
+        ></span>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入正确的验证码!">
+      <nz-input-group nzPrefixIcon="safety" nzSize="large">
+        <input
+          type="text"
+          nz-input
+          nzSize="large"
+          formControlName="checkCode"
+          placeholder="请输入验证码"
+        />
+      </nz-input-group>
+    </nz-form-control>
+    <img class="check-code" [src]="checkCode" (click)="changeCheckCodeImg()" />
+  </nz-form-item>
+  <div nz-row class="login-form-margin">
+    <div nz-col [nzSpan]="12">
+      <label nz-checkbox formControlName="remember">
+        <span>记住我</span>
+      </label>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <a class="login-form-forgot">忘记密码?</a>
+    </div>
+  </div>
+  <button
+    nz-button
+    class="login-form-button login-form-margin"
+    [nzType]="'primary'"
+  >
+    登录
+  </button>
+</form>
