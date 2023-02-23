@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   };
   passwordVisible: boolean = false;
   checkPasswordVisible: boolean = false
-
+  isVisible = false;
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
@@ -63,6 +63,24 @@ export class RegisterComponent implements OnInit {
 
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
+  }
+
+  openDialog(){
+    this.validateForm.reset();
+    const emailControl = this.validateForm.controls.email;
+    if (emailControl.invalid) {
+      emailControl.markAsDirty();
+      emailControl.updateValueAndValidity({onlySelf: true});
+      return;
+    }
+    this.isVisible = true;
+  }
+
+  getEmailCheckCode() {
+
+  }
+  handleCancel() {
+    this.isVisible = false;
   }
 
 }

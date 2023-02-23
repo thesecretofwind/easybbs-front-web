@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from './header.type';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { MODAL_TYPE, Title } from './header.type';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { RegisterComponent } from '../forms/register/register.component';
 
 const titleList: Title[] = [
   {
@@ -38,10 +40,34 @@ const titleList: Title[] = [
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  logoInfo = titleList
-  constructor() { }
+  logoInfo = titleList;
+  isVisible = false;
+  modalTitle = '登录';
+  modalType: MODAL_TYPE = MODAL_TYPE.REGISTER;
+  constructor(private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit(): void {
+  }
+
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
+  openDialog(modalType: MODAL_TYPE) {
+    this.isVisible = true;
+    this.modalType = modalType;
+    this.modalTitle = modalType === MODAL_TYPE.LOGIN ? '登录' : '注册';
   }
 
 }

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -26,6 +27,7 @@ import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './forms/register/register.component';
 import { LoginComponent } from './forms/login/login.component';
 import { ResetPasswordComponent } from './forms/reset-password/reset-password.component';
+import { CheckCodeComponent } from './forms/register/check-code/check-code.component';
 
 const icons: IconDefinition[] = [
   PlusOutline,
@@ -46,12 +48,14 @@ const icons: IconDefinition[] = [
     RegisterComponent,
     LoginComponent,
     ResetPasswordComponent,
+    CheckCodeComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
     NzIconModule.forChild(icons),

@@ -18,9 +18,16 @@
         <span nz-icon nzType="search" nzTheme="outline"></span>
       </button>
       <nz-button-group>
-        <button nz-button plain>登录</button>
-        <button nz-button>注册</button>
+        <button nz-button (click)="openDialog(1)">登录</button>
+        <button nz-button (click)="openDialog(0)">注册</button>
       </nz-button-group>
     </div>
    </div>
 </header>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null" [nzAutofocus]="null">
+  <ng-container *nzModalContent>
+    <app-login *ngIf="modalType === 1"></app-login>
+    <app-register *ngIf="modalType === 0"></app-register>
+  </ng-container>
+</nz-modal>
