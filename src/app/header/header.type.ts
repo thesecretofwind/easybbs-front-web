@@ -5,6 +5,7 @@ export interface Title {
 
 export enum MODAL_TYPE {
   REGISTER,
-  LOGIN
+  LOGIN,
+  RESET_PASSWORD
 }
 

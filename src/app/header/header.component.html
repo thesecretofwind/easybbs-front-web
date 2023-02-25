@@ -27,7 +27,8 @@
 
 <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null" [nzAutofocus]="null">
   <ng-container *nzModalContent>
-    <app-login *ngIf="modalType === 1"></app-login>
     <app-register *ngIf="modalType === 0"></app-register>
+    <app-login *ngIf="modalType === 1" ></app-login>
+    <app-reset-password *ngIf="modalType === 2"></app-reset-password>
   </ng-container>
 </nz-modal>

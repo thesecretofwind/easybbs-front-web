@@ -47,6 +47,9 @@ export class HeaderComponent implements OnInit {
   constructor(private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.modalType = 2
+    }, 5000)
   }
 
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
+import { api } from '../login/login.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -7,9 +10,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  constructor() { }
+  validateForm!: FormGroup;
+  captchaTooltipIcon: NzFormTooltipIcon = {
+    type: 'info-circle',
+    theme: 'twotone'
+  };
+  passwordVisible: boolean = false;
+  checkPasswordVisible: boolean = false
+  isVisible = false;
+  checkCode: string = api.checkCode;
+  submitForm(): void {
+    if (this.validateForm.valid) {
+      console.log('submit', this.validateForm.value);
+    } else {
+      Object.values(this.validateForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
+  }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.validateForm = this.fb.group({
+      email: [null, [Validators.email, Validators.required]],
+      checkEmailCode: ['', Validators.required],
+      nickname: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      checkPassword: [null, [Validators.required, this.confirmationValidator]],
+      checkCode: ['', Validators.required],
+    });
+  }
+
+  confirmationValidator(control: FormControl): { [s: string]: boolean } {
+    if (!control.value) {
+      return { required: true };
+    } else if (control.value !== this.validateForm.controls.password.value) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  }
+
+  changeCheckCodeImg() {
+    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`
+  }
+
+  updateConfirmValidator(): void {
+    /** wait for refresh value */
+    Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
+  }
+
+  openDialog(evnet:MouseEvent){
+    evnet.preventDefault();
+    event?.stopPropagation();
+    this.validateForm.reset();
+    const emailControl = this.validateForm.controls.email;
+    if (emailControl.invalid) {
+      emailControl.markAsDirty();
+      emailControl.updateValueAndValidity({onlySelf: true});
+      return;
+    }
+    this.isVisible = true;
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+  }
+
+  getEmailCheckCode() {
+
   }
 
 }

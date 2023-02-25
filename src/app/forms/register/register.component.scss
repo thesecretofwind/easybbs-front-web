@@ -7,3 +7,16 @@
 .register-btn {
   width: 100%;
 }
+
+.check-code-panel {
+  width: 100%;
+  display: flex;
+}
+.no-email-code {
+  color: #409eff;
+  cursor: pointer;
+}
+.check-code {
+  margin-left: 5px;
+  cursor: pointer;
+}

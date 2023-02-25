@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
+import { api } from '../login/login.component';
+import { MODAL_TYPE } from 'src/app/header/header.type';
 
-const pattern = /^(?=.*\d)(?=.*[a-z])( ?=.*[A-Z])(?=.*[! #$%^&*]) [ \da-zA-Z!#$%^&*]{8,16}$/
+const pattern = /^(?=.*\d)(?=.*[a-z])( ?=.*[A-Z])(?=.*[! #$%^&*]) [ \da-zA-Z!#$%^&*]{8,16}$/;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnChanges {
+  @Input() modalType: MODAL_TYPE = MODAL_TYPE.REGISTER;
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
@@ -17,6 +21,7 @@ export class RegisterComponent implements OnInit {
   passwordVisible: boolean = false;
   checkPasswordVisible: boolean = false
   isVisible = false;
+  checkCode: string = api.checkCode;
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
@@ -31,20 +36,36 @@ export class RegisterComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    const modalType = changes.modalType.currentValue;
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       email: [null, [Validators.email, Validators.required]],
-      checkCode: ['', Validators.required],
+      checkEmailCode: ['', Validators.required],
+      nickname: [null, [Validators.required]],
       password: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      nickname: [null, [Validators.required]],
-      phoneNumberPrefix: ['+86'],
-      phoneNumber: [null, [Validators.required]],
-      website: [null, [Validators.required]],
-      captcha: [null, [Validators.required]],
-      agree: [false]
+      checkCode: ['', Validators.required],
     });
+  }
+
+  getFormItemsByModalType(modalType: MODAL_TYPE) { // 尝试动态构建表单(暂时失败)
+    const baseFormItems = {
+      email: [null, [Validators.email, Validators.required]],
+      checkEmailCode: ['', Validators.required],
+      password: [null, [Validators.required]],
+      checkPassword: [null, [Validators.required, this.confirmationValidator]],
+      checkCode: ['', Validators.required],
+    }
+    const registerFormItem = {
+      nickname: [null, [Validators.required]]
+    }
+    if (this.modalType === MODAL_TYPE.REGISTER) {
+      return {...baseFormItems, ...registerFormItem};
+    }
+    return baseFormItems;
   }
 
   updateConfirmValidator(): void {
@@ -83,6 +104,10 @@ export class RegisterComponent implements OnInit {
   }
   handleCancel() {
     this.isVisible = false;
+  }
+
+  changeCheckCodeImg() {
+    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`
   }
 
 }
