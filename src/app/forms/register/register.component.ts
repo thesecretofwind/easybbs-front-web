@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { api } from '../login/login.component';
@@ -11,8 +11,9 @@ const pattern = /^(?=.*\d)(?=.*[a-z])( ?=.*[A-Z])(?=.*[! #$%^&*]) [ \da-zA-Z!#$%
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit, OnChanges {
+export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() modalType: MODAL_TYPE = MODAL_TYPE.REGISTER;
+  @Output() modalTypeChange = new EventEmitter<MODAL_TYPE>();
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
@@ -35,7 +36,11 @@ export class RegisterComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,  private cd: ChangeDetectorRef) { }
+  ngAfterViewInit(): void {
+    this.changeCheckCodeImg();
+    this.cd.detectChanges();
+  }
   ngOnChanges(changes: SimpleChanges): void {
     const modalType = changes.modalType.currentValue;
   }
@@ -89,7 +94,6 @@ export class RegisterComponent implements OnInit, OnChanges {
   openDialog(evnet:MouseEvent){
     evnet.preventDefault();
     event?.stopPropagation();
-    this.validateForm.reset();
     const emailControl = this.validateForm.controls.email;
     if (emailControl.invalid) {
       emailControl.markAsDirty();
@@ -107,7 +111,11 @@ export class RegisterComponent implements OnInit, OnChanges {
   }
 
   changeCheckCodeImg() {
-    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`
+    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`;
+    // return this.checkCode;
   }
 
+  goToLogin() {
+    this.modalTypeChange.emit(1);
+  }
 }

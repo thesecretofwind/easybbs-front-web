@@ -56,9 +56,10 @@
         <span>记住我</span>
       </label>
     </div>
-    <div nz-col [nzSpan]="12">
-      <a class="login-form-forgot">忘记密码?</a>
-    </div>
+  </div>
+  <div class="login-form-footer">
+      <a class="login-form-forgot" (click)="goToResetPassword($event)">忘记密码?</a>
+      <a class="login-form-forgot" (click)="goToRegister($event)">没有账号?</a>
   </div>
   <button
     nz-button

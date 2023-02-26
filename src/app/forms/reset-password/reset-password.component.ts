@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { api } from '../login/login.component';
+import { MODAL_TYPE } from 'src/app/header/header.type';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, AfterViewInit {
 
+  @Output() modalTypeChange = new EventEmitter<MODAL_TYPE>();
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
@@ -31,7 +33,12 @@ export class ResetPasswordComponent implements OnInit {
       });
     }
   }
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) { }
+  ngAfterViewInit(): void {
+    // throw new Error('Method not implemented.');
+    this.changeCheckCodeImg();
+    this.cd.detectChanges();
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -54,7 +61,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   changeCheckCodeImg() {
-    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`
+    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`;
+    // return this.checkCode;
   }
 
   updateConfirmValidator(): void {
@@ -65,7 +73,6 @@ export class ResetPasswordComponent implements OnInit {
   openDialog(evnet:MouseEvent){
     evnet.preventDefault();
     event?.stopPropagation();
-    this.validateForm.reset();
     const emailControl = this.validateForm.controls.email;
     if (emailControl.invalid) {
       emailControl.markAsDirty();
@@ -81,6 +88,10 @@ export class ResetPasswordComponent implements OnInit {
 
   getEmailCheckCode() {
 
+  }
+
+  goToLogin() {
+    this.modalTypeChange.emit(1);
   }
 
 }

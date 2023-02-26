@@ -25,10 +25,14 @@
    </div>
 </header>
 
-<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null" [nzAutofocus]="null">
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="customeModalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null" [nzAutofocus]="null">
   <ng-container *nzModalContent>
-    <app-register *ngIf="modalType === 0"></app-register>
-    <app-login *ngIf="modalType === 1" ></app-login>
-    <app-reset-password *ngIf="modalType === 2"></app-reset-password>
+    <app-register *ngIf="modalType === 0" (modalTypeChange)="changeModalType($event)"></app-register>
+    <app-login *ngIf="modalType === 1" (modalTypeChange)="changeModalType($event)"></app-login>
+    <app-reset-password *ngIf="modalType === 2" (modalTypeChange)="changeModalType($event)"></app-reset-password>
   </ng-container>
 </nz-modal>
+
+<ng-template #customeModalTitle>{{ modalTitle }}</ng-template>
+
+

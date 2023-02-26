@@ -9,3 +9,5 @@ export enum MODAL_TYPE {
   RESET_PASSWORD
 }
 
+export type ChangeModalType  = (modalType: MODAL_TYPE) => void;
+
