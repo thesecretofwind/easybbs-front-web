@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  MODAL_TYPE } from 'src/app/header/header.type';
+import { formMessage } from '../validator-rules';
 
 
 export const api = {
@@ -56,6 +57,11 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
     // this.modalTypeChange(0);
     this.modalTypeChange.emit(0)
+  }
+
+  getErrorMessage(key: string, type: string) {
+    const targetErrorObj = formMessage[key as keyof typeof formMessage];
+    return targetErrorObj[type as keyof typeof targetErrorObj];
   }
 
 }

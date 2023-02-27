@@ -5,7 +5,7 @@
   class="login-form"
 >
   <nz-form-item>
-    <nz-form-control nzErrorTip="请输入正确的邮箱">
+    <nz-form-control [nzErrorTip]="emailErrorTpl">
       <nz-input-group nzPrefixIcon="mail" nzSize="large">
         <input
           type="email"
@@ -13,6 +13,10 @@
           formControlName="email"
           placeholder="请输入邮箱"
         />
+        <ng-template #emailErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">{{getErrorMessage('email', 'required')}}</ng-container>
+          <ng-container *ngIf="control.hasError('pattern')">{{getErrorMessage('email', 'pattern')}}</ng-container>
+        </ng-template>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -37,7 +41,7 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control nzErrorTip="请输入正确的验证码!">
+    <nz-form-control [nzErrorTip]="checkCodeErrorTpl!">
       <nz-input-group nzPrefixIcon="safety" nzSize="large">
         <input
           type="text"
@@ -46,6 +50,10 @@
           formControlName="checkCode"
           placeholder="请输入验证码"
         />
+        <ng-template #checkCodeErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">{{getErrorMessage('checkCode', 'required')}}</ng-container>
+          <!-- <ng-container *ngIf="control.hasError('pattern')">{{getErrorMessage('checkCode', 'pattern')}}</ng-container> -->
+        </ng-template>
       </nz-input-group>
     </nz-form-control>
     <img class="check-code" [src]="checkCode" (click)="changeCheckCodeImg()" />
