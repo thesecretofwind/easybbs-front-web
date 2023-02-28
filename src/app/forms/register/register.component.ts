@@ -28,12 +28,12 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
       checkEmailCode: ['', Validators.required, Validators.pattern(validatorNumber)],
       nickname: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.pattern(validatorPassword)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      checkCode: ['', Validators.required],
+      checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
     });
   }
 

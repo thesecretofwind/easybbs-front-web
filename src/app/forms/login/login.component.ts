@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  MODAL_TYPE } from 'src/app/header/header.type';
-import { formMessage } from '../validator-rules';
+import { formMessage, validatorNumber } from '../validator-rules';
 
 
 export const api = {
@@ -25,9 +25,13 @@ export class LoginComponent implements OnInit {
     this.validateForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      checkCode: ['', [Validators.required]],
+      checkCode: ['', [Validators.required, Validators.pattern(validatorNumber)]],
       remember: [false]
     });
+    this.validateForm.valueChanges.subscribe((data:any) => {
+      console.log(this.validateForm);
+
+    })
   }
 
   submitForm(): void {

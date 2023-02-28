@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { api } from '../login/login.component';
 import { MODAL_TYPE } from 'src/app/header/header.type';
+import { formMessage, validatorNumber, validatorPassword } from '../validator-rules';
 
 @Component({
   selector: 'app-reset-password',
@@ -42,12 +43,12 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
-      checkEmailCode: ['', Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      checkEmailCode: ['', Validators.required, Validators.pattern(validatorNumber)],
       nickname: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.pattern(validatorPassword)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      checkCode: ['', Validators.required],
+      checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
     });
   }
 
@@ -92,6 +93,11 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
 
   goToLogin() {
     this.modalTypeChange.emit(1);
+  }
+
+  getErrorMessage(key: string, type: string) {
+    const targetErrorObj = formMessage[key as keyof typeof formMessage];
+    return targetErrorObj[type as keyof typeof targetErrorObj];
   }
 
 }
