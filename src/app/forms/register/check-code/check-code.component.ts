@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CheckCodeComponent implements OnInit, AfterViewInit {
   @Input() email!: string;
+  @Input() form !: FormGroup;
   checkCode!: string;
   validateForm!: FormGroup;
 
@@ -20,7 +21,7 @@ export class CheckCodeComponent implements OnInit, AfterViewInit {
       checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
     });
   }
-  
+
   ngAfterViewInit(): void {
     this.changeCheckCodeImg();
     this.cd.detectChanges();

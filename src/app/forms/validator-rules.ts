@@ -1,6 +1,6 @@
 export const validatorNumber = /^([0]|[1-9][0-9]*)$/;
 export const validatorPassword =
-  /^(?=.*\d)(?=.*[a-z])( ?=.*[A-Z])(?=.*[! #$%^&*]) [ \da-zA-Z!#$%^&*]{8,16}$/;
+  /^(?=.*\d)(?=.*[a-zA-Z])[\da-zA-Z~!#$%^&*_]{8,16}$/;
 
 export const formMessage = {
   email: {

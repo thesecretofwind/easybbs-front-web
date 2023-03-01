@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() modalType: MODAL_TYPE = MODAL_TYPE.REGISTER;
   @Output() modalTypeChange = new EventEmitter<MODAL_TYPE>();
   validateForm!: FormGroup;
+  checkCodeForm!: FormGroup;
   passwordVisible: boolean = false;
   checkPasswordVisible: boolean = false
   isVisible = false;
@@ -34,6 +35,9 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
       password: [null, [Validators.required, Validators.pattern(validatorPassword)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
       checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
+    });
+    this.checkCodeForm = this.fb.group({
+      checkCode: ['', [Validators.required, Validators.pattern(validatorNumber)]],
     });
   }
 
@@ -106,6 +110,7 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   }
   handleCancel() {
     this.isVisible = false;
+    this.checkCodeForm.reset();
   }
 
   changeCheckCodeImg() {

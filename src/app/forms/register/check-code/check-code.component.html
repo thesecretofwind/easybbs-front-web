@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="validateForm">
+<form nz-form [formGroup]="form">
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzFor="email">邮箱</nz-form-label>
     <nz-form-control [nzSpan]="14">
@@ -7,13 +7,15 @@
   </nz-form-item >
   <nz-form-item>
     <nz-form-label [nzSpan]="6">验证码</nz-form-label>
-    <nz-form-control [nzSpan]="14" [nzErrorTip]="checkCodeErrorTpl">
-      <input nz-input name="checkCode" type="text" id="checkCode">
+    <nz-form-control [nzSpan]="14" [nzErrorTip]="checkCodeErrorTpl" nzSize="large">
+      <nz-input-group nzPrefixIcon="safety" nzSize="large">
+        <input nz-input formControlName="checkCode" name="checkCode" type="text" id="checkCode">
+      </nz-input-group>
       <ng-template #checkCodeErrorTpl let-control>
         <ng-container *ngIf="control.hasError('required')">{{getErrorMessage('checkCode', 'required')}}</ng-container>
         <ng-container *ngIf="control.hasError('pattern')">{{getErrorMessage('checkCode', 'pattern')}}</ng-container>
       </ng-template>
     </nz-form-control>
-    <img class="check-code" [src]="changeCheckCodeImg()" (click)="changeCheckCodeImg()" />
+    <img class="check-code" [src]="checkCode" (click)="changeCheckCodeImg()" />
   </nz-form-item>
 </form>
