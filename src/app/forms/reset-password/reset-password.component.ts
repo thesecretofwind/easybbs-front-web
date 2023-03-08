@@ -22,6 +22,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   checkPasswordVisible: boolean = false
   isVisible = false;
   checkCode: string = api.checkCode;
+  checkCodeForm!: FormGroup;
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
@@ -49,6 +50,9 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
       password: [null, [Validators.required, Validators.pattern(validatorPassword)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
       checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
+    });
+    this.checkCodeForm = this.fb.group({
+      checkCode: ['', [Validators.required, Validators.pattern(validatorNumber)]],
     });
   }
 

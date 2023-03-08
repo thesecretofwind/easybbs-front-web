@@ -28,7 +28,7 @@ export class CheckCodeComponent implements OnInit, AfterViewInit {
   }
 
   changeCheckCodeImg() {
-    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`;
+    this.checkCode = `${api.checkCode}?type=1&time="${new Date().getTime()}"`;
     return this.checkCode;
   }
 

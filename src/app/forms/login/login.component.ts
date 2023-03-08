@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   changeCheckCodeImg() {
-    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`
+    this.checkCode = `${api.checkCode}?type=0&time="${new Date().getTime()}"`
   }
 
   goToResetPassword(event: MouseEvent) {

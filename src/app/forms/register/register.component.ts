@@ -114,7 +114,7 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   changeCheckCodeImg() {
-    this.checkCode = `${api.checkCode}?time="${new Date().getTime()}"`;
+    this.checkCode = `${api.checkCode}?type=0&time="${new Date().getTime()}"`;
     // return this.checkCode;
   }
 
