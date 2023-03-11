@@ -27,7 +27,7 @@ import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './forms/register/register.component';
 import { LoginComponent } from './forms/login/login.component';
 import { ResetPasswordComponent } from './forms/reset-password/reset-password.component';
-import { CheckCodeComponent } from './forms/register/check-code/check-code.component';
+import { CheckCodeComponent } from './forms/check-code/check-code.component';
 
 const icons: IconDefinition[] = [
   PlusOutline,

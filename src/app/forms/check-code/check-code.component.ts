@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { api } from '../../login/login.component';
-import { formMessage, validatorNumber } from '../../validator-rules';
+import { api } from '../login/login.component';
+import { formMessage, validatorNumber } from '../validator-rules';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,15 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CheckCodeComponent implements OnInit, AfterViewInit {
   @Input() email!: string;
   @Input() form !: FormGroup;
+  //  0:登录/注册验证码 1:发送邮箱验证码
+  @Input() type: 0 | 1 = 0;
   checkCode!: string;
-  validateForm!: FormGroup;
+  // validateForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
-    });
+    // this.validateForm = this.fb.group({
+    //   checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
+    // });
   }
 
   ngAfterViewInit(): void {
@@ -28,7 +30,7 @@ export class CheckCodeComponent implements OnInit, AfterViewInit {
   }
 
   changeCheckCodeImg() {
-    this.checkCode = `${api.checkCode}?type=1&time="${new Date().getTime()}"`;
+    this.checkCode = `${api.checkCode}?type=${this.type}&time="${new Date().getTime()}"`;
     return this.checkCode;
   }
 

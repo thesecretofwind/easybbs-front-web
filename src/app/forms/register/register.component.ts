@@ -5,6 +5,9 @@ import { api } from '../login/login.component';
 import { MODAL_TYPE } from 'src/app/header/header.type';
 import { validatorNumber, validatorPassword } from '../validator-rules';
 import { formMessage } from '../validator-rules';
+import { EmailCodeType } from 'src/app/type';
+import { HomeService } from 'src/app/services/home.service';
+import { HttpResult } from 'src/app/services/http.type';
 
 @Component({
   selector: 'app-register',
@@ -20,8 +23,9 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   checkPasswordVisible: boolean = false
   isVisible = false;
   checkCode: string = api.checkCode;
+  type = EmailCodeType.VERTIFY_EMAIL;
 
-  constructor(private fb: FormBuilder,  private cd: ChangeDetectorRef) { }
+  constructor(private fb: FormBuilder,  private cd: ChangeDetectorRef, private home: HomeService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     const modalType = changes.modalType.currentValue;
@@ -34,10 +38,10 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
       nickname: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.pattern(validatorPassword)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      checkCode: ['', Validators.required, Validators.pattern(validatorNumber)],
+      checkCode: ['', Validators.required],
     });
     this.checkCodeForm = this.fb.group({
-      checkCode: ['', [Validators.required, Validators.pattern(validatorNumber)]],
+      checkCode: ['', [Validators.required]],
     });
   }
 
@@ -106,7 +110,34 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   getEmailCheckCode() {
-
+    const checkCodeControl = this.checkCodeForm.controls.checkCode;
+    if (checkCodeControl.invalid) {
+      checkCodeControl.markAsDirty();
+      checkCodeControl.updateValueAndValidity({onlySelf: true});
+      return;
+    }
+    const { checkCode } = this.checkCodeForm.value;
+    this.home
+      .sendEmailCode<HttpResult>({
+        checkCode,
+        email: this.validateForm.controls.email.value,
+        type: this.type,
+      })
+      .subscribe({
+        next: (res: HttpResult) => {
+           const {info, status} = res;
+           if (status === 'error') {
+            checkCodeControl.setErrors({
+              wrongCheckCode: info
+            });
+            this.changeCheckCodeImg();
+           }
+           if (status === 'success') {
+            this.isVisible = false;
+           }
+        },
+        error: (err: any) => {console.log(err)}
+      });
   }
   handleCancel() {
     this.isVisible = false;

@@ -15,3 +15,10 @@ export interface IHeaderBoard {
   sort: number;
   children: IHeaderBoard[];
 }
+
+export interface HttpResult<T = null> {
+  status: "success" | "error";
+  code: number;
+  info: string;
+  data: T;
+}

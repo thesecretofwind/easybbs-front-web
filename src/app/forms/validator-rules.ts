@@ -21,5 +21,6 @@ export const formMessage = {
   checkCode: {
     required: '请输入验证码',
     pattern: '验证码格式不正确',
+    wrongCheckCode: '验证码错误'
   },
 };
