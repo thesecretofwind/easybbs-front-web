@@ -5,6 +5,7 @@ import {
   EventEmitter,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -23,6 +24,7 @@ import {
 import { EmailCodeType } from 'src/app/type';
 import { HttpResult } from 'src/app/services/http.type';
 import { HomeService } from 'src/app/services/home.service';
+import { CheckCodeComponent } from '../check-code/check-code.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -42,6 +44,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   checkCode: string = api.checkCode;
   checkCodeForm!: FormGroup;
   type = EmailCodeType.VERTIFY_EMAIL;
+  @ViewChild('checkCodeCmp') checkCodeCmp!: CheckCodeComponent;
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
@@ -70,8 +73,8 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
       email: [null, [Validators.required, Validators.email]],
       checkEmailCode: [
         '',
-        Validators.required,
-        Validators.pattern(validatorNumber),
+        [Validators.required,
+        Validators.pattern(validatorNumber)],
       ],
       nickname: [null, [Validators.required]],
       password: [
@@ -125,6 +128,9 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
 
   getEmailCheckCode() {
     const checkCodeControl = this.checkCodeForm.controls.checkCode;
+    if (checkCodeControl.errors?.wrongCheckCode) {
+      return;
+    }
     if (checkCodeControl.invalid) {
       checkCodeControl.markAsDirty();
       checkCodeControl.updateValueAndValidity({ onlySelf: true });
@@ -144,7 +150,8 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
             checkCodeControl.setErrors({
               wrongCheckCode: info,
             });
-            this.changeCheckCodeImg();
+            // this.changeCheckCodeImg();
+            this.checkCodeCmp.changeCheckCodeImg();
           }
           if (status === 'success') {
             this.isVisible = false;

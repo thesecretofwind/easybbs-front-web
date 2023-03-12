@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { api } from '../login/login.component';
@@ -8,6 +8,7 @@ import { formMessage } from '../validator-rules';
 import { EmailCodeType } from 'src/app/type';
 import { HomeService } from 'src/app/services/home.service';
 import { HttpResult } from 'src/app/services/http.type';
+import { CheckCodeComponent } from '../check-code/check-code.component';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ import { HttpResult } from 'src/app/services/http.type';
 export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() modalType: MODAL_TYPE = MODAL_TYPE.REGISTER;
   @Output() modalTypeChange = new EventEmitter<MODAL_TYPE>();
+  @ViewChild('checkCodeCmp') checkCodeCmp!: CheckCodeComponent;
   validateForm!: FormGroup;
   checkCodeForm!: FormGroup;
   passwordVisible: boolean = false;
@@ -34,7 +36,7 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
-      checkEmailCode: ['', Validators.required, Validators.pattern(validatorNumber)],
+      checkEmailCode: ['',[Validators.required, Validators.pattern(validatorNumber)]],
       nickname: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.pattern(validatorPassword)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
@@ -111,6 +113,9 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
 
   getEmailCheckCode() {
     const checkCodeControl = this.checkCodeForm.controls.checkCode;
+    if (checkCodeControl.errors?.wrongCheckCode) {
+      return;
+    }
     if (checkCodeControl.invalid) {
       checkCodeControl.markAsDirty();
       checkCodeControl.updateValueAndValidity({onlySelf: true});
@@ -130,7 +135,8 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
             checkCodeControl.setErrors({
               wrongCheckCode: info
             });
-            this.changeCheckCodeImg();
+            // this.changeCheckCodeImg();
+            this.checkCodeCmp.changeCheckCodeImg();
            }
            if (status === 'success') {
             this.isVisible = false;

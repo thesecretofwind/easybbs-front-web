@@ -14,7 +14,7 @@
       <ng-template #checkCodeErrorTpl let-control>
         <ng-container *ngIf="control.hasError('required')">{{getErrorMessage('checkCode', 'required')}}</ng-container>
         <ng-container *ngIf="control.hasError('pattern')">{{getErrorMessage('checkCode', 'pattern')}}</ng-container>
-        <ng-container *ngIf="control.hasError('wrongCheckCode')">{{getErrorMessage('checkCode', 'wrongCheckCode')}}</ng-container>
+        <ng-container *ngIf="control.hasError('wrongCheckCode')">{{control.errors?.wrongCheckCode}}</ng-container>
       </ng-template>
     </nz-form-control>
     <img class="check-code" [src]="checkCode" (click)="changeCheckCodeImg()" />
