@@ -5,10 +5,11 @@ import { api } from '../login/login.component';
 import { MODAL_TYPE } from 'src/app/header/header.type';
 import { validatorNumber, validatorPassword } from '../validator-rules';
 import { formMessage } from '../validator-rules';
-import { EmailCodeType } from 'src/app/type';
+import { EmailCodeType, Register } from 'src/app/type';
 import { HomeService } from 'src/app/services/home.service';
 import { HttpResult } from 'src/app/services/http.type';
 import { CheckCodeComponent } from '../check-code/check-code.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-register',
@@ -26,8 +27,9 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   isVisible = false;
   checkCode: string = api.checkCode;
   type = EmailCodeType.VERTIFY_EMAIL;
+  isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder,  private cd: ChangeDetectorRef, private home: HomeService) { }
+  constructor(private fb: FormBuilder,  private cd: ChangeDetectorRef,  private message: NzMessageService, private home: HomeService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     const modalType = changes.modalType.currentValue;
@@ -35,11 +37,11 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       checkEmailCode: ['',[Validators.required, Validators.pattern(validatorNumber)]],
-      nickname: [null, [Validators.required]],
-      password: [null, [Validators.required, Validators.pattern(validatorPassword)]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator]],
+      nickname: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.pattern(validatorPassword)]],
+      checkPassword: ['', [Validators.required, this.confirmationValidator]],
       checkCode: ['', Validators.required],
     });
     this.checkCodeForm = this.fb.group({
@@ -55,6 +57,21 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
+      const {email, nickName, password,emailCode, checkCode} = this.validateForm.value;
+      const params: Register = {
+        email,
+        nickName,
+        password,
+        emailCode,
+        checkCode
+      };
+      this.home.register(params).subscribe( (res: HttpResult) => {
+        const {status, info, code, data} = res;
+        if (status === 'success') {
+          this.message.success(info);
+        }
+        // TODO:注册成功后的处理
+      })
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
@@ -122,6 +139,7 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
       return;
     }
     const { checkCode } = this.checkCodeForm.value;
+    this.isLoading = true;
     this.home
       .sendEmailCode<HttpResult>({
         checkCode,
@@ -142,7 +160,10 @@ export class RegisterComponent implements OnInit, OnChanges, AfterViewInit {
             this.isVisible = false;
            }
         },
-        error: (err: any) => {console.log(err)}
+        error: (err: any) => {console.log(err)},
+        complete: () => {
+          this.isLoading = false;
+        }
       });
   }
   handleCancel() {

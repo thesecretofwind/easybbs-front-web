@@ -180,7 +180,7 @@
     ></app-check-code>
   </ng-container>
   <div *nzModalFooter>
-    <button nz-button nzType="primary" (click)="getEmailCheckCode()">
+    <button nz-button nzType="primary" (click)="getEmailCheckCode()" [nzLoading]="isLoading">
       发送验证码
     </button>
   </div>

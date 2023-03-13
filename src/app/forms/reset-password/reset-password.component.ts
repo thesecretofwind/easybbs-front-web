@@ -21,10 +21,11 @@ import {
   validatorNumber,
   validatorPassword,
 } from '../validator-rules';
-import { EmailCodeType } from 'src/app/type';
+import { EmailCodeType, ResetPassword, ResetPasswordResult } from 'src/app/type';
 import { HttpResult } from 'src/app/services/http.type';
 import { HomeService } from 'src/app/services/home.service';
 import { CheckCodeComponent } from '../check-code/check-code.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-reset-password',
@@ -44,22 +45,13 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   checkCode: string = api.checkCode;
   checkCodeForm!: FormGroup;
   type = EmailCodeType.VERTIFY_EMAIL;
+  isLoading: boolean = false;
   @ViewChild('checkCodeCmp') checkCodeCmp!: CheckCodeComponent;
-  submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-    } else {
-      Object.values(this.validateForm.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-    }
-  }
+
   constructor(
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
+    private message: NzMessageService,
     private home: HomeService
   ) {}
   ngAfterViewInit(): void {
@@ -87,6 +79,34 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     this.checkCodeForm = this.fb.group({
       checkCode: ['', [Validators.required]],
     });
+  }
+
+  submitForm(): void {
+    if (this.validateForm.valid) {
+      // console.log('submit', this.validateForm.value);
+      const {email, nickName, password,emailCode, checkCode} = this.validateForm.value;
+      const params: ResetPassword = { // 我觉得这些参数是要添加上去了
+        email,
+        // nickName,
+        password,
+        // emailCode,
+        checkCode
+      };
+      this.home.resetPassword(params).subscribe( (res: HttpResult<ResetPasswordResult>) => {
+        const {status, info, code, data} = res;
+        if (status === 'success') {
+          this.message.success(info);
+        }
+        // TODO:充值密码成功后的处理
+      })
+    } else {
+      Object.values(this.validateForm.controls).forEach((control) => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
   }
 
   confirmationValidator(control: FormControl): { [s: string]: boolean } {
@@ -137,6 +157,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
       return;
     }
     const { checkCode } = this.checkCodeForm.value;
+    this.isLoading = true;
     this.home
       .sendEmailCode<HttpResult>({
         checkCode,
@@ -160,6 +181,9 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
         error: (err: any) => {
           console.log(err);
         },
+        complete: () => {
+          this.isLoading = false;
+        }
       });
   }
 
