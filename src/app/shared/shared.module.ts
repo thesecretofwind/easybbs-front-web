@@ -34,8 +34,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-
-
 const moduleArr = [
   NzButtonModule,
   NzLayoutModule,
@@ -59,16 +57,12 @@ const moduleArr = [
   NzMessageModule,
   NzModalModule,
   NzPopconfirmModule,
-  NzSpinModule
+  NzSpinModule,
 ];
-
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    ...moduleArr
-  ],
-  exports: [...moduleArr]
+  imports: [CommonModule, ...moduleArr],
+  exports: [...moduleArr],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import {  MODAL_TYPE } from 'src/app/header/header.type';
+import { HomeService } from 'src/app/services/home.service';
+import { HttpResult } from 'src/app/services/http.type';
+import { Login, LoginResult } from 'src/app/type';
 import { formMessage, validatorNumber } from '../validator-rules';
 
 
@@ -18,8 +22,9 @@ export class LoginComponent implements OnInit {
   @Output() modalTypeChange = new EventEmitter<MODAL_TYPE>();
   validateForm!: FormGroup;
   passwordVisible = false;
+  isLoading: boolean = false;
   checkCode: string = api.checkCode;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private message: NzMessageService, private home: HomeService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -36,7 +41,22 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+      // console.log('submit', this.validateForm.value);
+      const {email, password, checkCode} = this.validateForm.value;
+      const params: Login = {
+        email,
+        password,
+        checkCode
+      };
+      this.isLoading = true;
+      this.home.login(params).subscribe((res: HttpResult<LoginResult>) => {
+        this.isLoading = false;
+        const {status, info, code, data} = res;
+        if (status === 'success') {
+          this.message.success(info);
+        }
+        // TODO:登录成功后的处理
+      })
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {

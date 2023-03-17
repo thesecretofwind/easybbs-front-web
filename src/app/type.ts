@@ -15,3 +15,27 @@ export interface UserState {
   userId: string;
   avatarUrl: string;
 }
+
+export interface Register {
+  email: string;
+  nickName: string;
+  password: string;
+  emailCode: number;
+  checkCode: string;
+}
+
+export interface Login {
+  email: string;
+  password: string;
+  checkCode: string;
+}
+
+export interface LoginResult {
+  nickName: string;
+  province: string;
+  userId: string;
+  isAdmin: boolean;
+}
+
+export type ResetPassword = Login;
+export type ResetPasswordResult = LoginResult;

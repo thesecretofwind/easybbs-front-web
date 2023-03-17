@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpResult, IHeaderBoard, MessageCount } from './http.type';
-import { VertifyEmailCode } from '../type';
+import { Login, LoginResult, Register, ResetPassword, ResetPasswordResult, VertifyEmailCode } from '../type';
 
 const headerBoardUrl = "api/board/loadBoard";
 
@@ -14,7 +14,10 @@ const httpOptions = {
 const API = {
   SEND_EMAIL: '/api/sendEmailCode',
   HEADER_BOARD: 'api/board/loadBoard',
-  MESSAGE_COUNT: 'api/ucenter/getMessageCount'
+  MESSAGE_COUNT: 'api/ucenter/getMessageCount',
+  REGISTER: '/register',
+  LOGIN: '/login',
+  RESET_PASSWORD: '/resetPwd',
 }
 
 @Injectable({
@@ -34,6 +37,18 @@ export class HomeService {
 
   getMessageCount() {
     return this.post<HttpResult<MessageCount>>(API.MESSAGE_COUNT, null);
+  }
+
+  register(params: Register) {
+    return this.http.post<HttpResult>(API.REGISTER, params);
+  }
+
+  login(params: Login) {
+    return this.http.post<HttpResult<LoginResult>>(API.LOGIN, params);
+  }
+
+  resetPassword(params: ResetPassword) {
+    return this.http.post<HttpResult<ResetPasswordResult>>(API.RESET_PASSWORD, params);
   }
 
   post<T>(url: string, params: any) {
