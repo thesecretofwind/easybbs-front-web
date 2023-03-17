@@ -17,8 +17,17 @@ export interface IHeaderBoard {
 }
 
 export interface HttpResult<T = null> {
-  status: "success" | "error";
+  status: 'success' | 'error';
   code: number;
   info: string;
   data: T;
+}
+
+export interface MessageCount {
+  downloadAttachment: number;
+  likeComment: number;
+  likePost: number;
+  reply: number;
+  sys: number;
+  total: number;
 }

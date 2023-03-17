@@ -17,10 +17,19 @@
         <span>搜索</span>
         <span nz-icon nzType="search" nzTheme="outline"></span>
       </button>
-      <nz-button-group>
+      <!-- <nz-button-group>
         <button nz-button (click)="openDialog(1)">登录</button>
         <button nz-button (click)="openDialog(0)">注册</button>
-      </nz-button-group>
+
+      </nz-button-group> -->
+      <nz-badge nzDot [nzCount]="messageobj.total" [nzShowDot]="messageobj.total > 0">
+        <span nz-icon nzType="notification" class="notification" nzTheme="fill"></span>
+      </nz-badge>
+      <nz-avatar nzSize="large" nzIcon="user"></nz-avatar>
+      <ng-template #logined>
+        <span nz-icon nzType="notification" nzTheme="outline"></span>
+        <nz-avatar nzSize="large" nzIcon="user"></nz-avatar>
+      </ng-template>
     </div>
    </div>
 </header>

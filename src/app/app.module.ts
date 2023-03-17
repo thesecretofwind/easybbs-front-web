@@ -17,6 +17,7 @@ import {
   LockOutline,
   MailOutline,
   SafetyOutline,
+  NotificationFill,
 } from '@ant-design/icons-angular/icons';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +29,7 @@ import { RegisterComponent } from './forms/register/register.component';
 import { LoginComponent } from './forms/login/login.component';
 import { ResetPasswordComponent } from './forms/reset-password/reset-password.component';
 import { CheckCodeComponent } from './forms/check-code/check-code.component';
+import { UserInfoComponent } from './forms/user-info/user-info.component';
 
 const icons: IconDefinition[] = [
   PlusOutline,
@@ -37,7 +39,8 @@ const icons: IconDefinition[] = [
   UserOutline,
   LockOutline,
   MailOutline,
-  SafetyOutline
+  SafetyOutline,
+  NotificationFill,
 ];
 
 @NgModule({
@@ -49,6 +52,7 @@ const icons: IconDefinition[] = [
     LoginComponent,
     ResetPasswordComponent,
     CheckCodeComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,3 +9,9 @@ export enum EmailCodeType {
   LOGIN_OR_REGISTER,
   VERTIFY_EMAIL,
 }
+
+
+export interface UserState {
+  userId: string;
+  avatarUrl: string;
+}

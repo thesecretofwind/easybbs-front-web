@@ -3,6 +3,10 @@ import { MODAL_TYPE, Title } from './header.type';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RegisterComponent } from '../forms/register/register.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { UserStateService } from '../services/user-state.service';
+import { UserState } from '../type';
+import { HomeService } from '../services/home.service';
+import { HttpResult, MessageCount } from '../services/http.type';
 
 const titleList: Title[] = [
   {
@@ -38,19 +42,42 @@ const titleList: Title[] = [
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   logoInfo = titleList;
   isVisible = false;
   modalTitle = '登录';
   modalType: MODAL_TYPE = MODAL_TYPE.REGISTER;
-  
-  constructor(private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
+  userInfo: UserState = {
+    userId: '',
+    avatarUrl: '',
+  };
+  messageobj: MessageCount = {
+    downloadAttachment: 0,
+    likeComment: 0,
+    likePost: 0,
+    reply: 0,
+    sys: 0,
+    total: 0,
+  };
+
+  constructor(
+    private modal: NzModalService,
+    private viewContainerRef: ViewContainerRef,
+    private userStateService: UserStateService,
+    private home: HomeService
+  ) {}
 
   ngOnInit(): void {
+    this.userStateService.userState$.subscribe((user: UserState) => {
+      this.userInfo = user;
+      this.home.getMessageCount().subscribe((res: HttpResult<MessageCount>) => {
+        const { data } = res;
+        this.messageobj = data;
+      });
+    });
   }
-
 
   showModal(): void {
     this.isVisible = true;
@@ -75,7 +102,7 @@ export class HeaderComponent implements OnInit {
   changeModalType(modalType: MODAL_TYPE) {
     this.isVisible = true;
     this.modalType = modalType;
-    switch(modalType) {
+    switch (modalType) {
       case MODAL_TYPE.LOGIN:
         this.modalTitle = '登录';
         break;
@@ -89,5 +116,4 @@ export class HeaderComponent implements OnInit {
         this.modalTitle = 'xxx';
     }
   }
-
 }
