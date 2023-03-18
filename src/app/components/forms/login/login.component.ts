@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import {  MODAL_TYPE } from 'src/app/header/header.type';
+import {  MODAL_TYPE } from 'src/app/components/header/header.type';
 import { HomeService } from 'src/app/services/home.service';
 import { HttpResult } from 'src/app/services/http.type';
 import { Login, LoginResult } from 'src/app/type';

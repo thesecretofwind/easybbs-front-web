@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnCha
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { api } from '../login/login.component';
-import { MODAL_TYPE } from 'src/app/header/header.type';
+import { MODAL_TYPE } from 'src/app/components/header/header.type';
 import { validatorNumber, validatorPassword } from '../validator-rules';
 import { formMessage } from '../validator-rules';
 import { EmailCodeType, Register } from 'src/app/type';

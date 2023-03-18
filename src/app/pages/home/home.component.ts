@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../services/home.service';
-import { IHeaderBoard } from '../services/http.type';
+import { HomeService } from '../../services/home.service';
+import { IHeaderBoard } from '../../services/http.type';
 
 @Component({
   selector: 'app-home',

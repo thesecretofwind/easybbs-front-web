@@ -1,0 +1,122 @@
+<header>
+  <!-- <button nz-button nzType="primary">Primary Button</button>
+   -->
+  <div class="header-content">
+    <div class="menu-panel">
+      <!-- 标题logo -->
+      <a href="/">
+        <span *ngFor="let item of logoInfo" [style.color]="item.color">{{
+          item.letter
+        }}</span>
+      </a>
+    </div>
+    <div class="user-info-panel">
+      <button nz-button nzType="primary">
+        <span>发帖</span>
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="primary" class="search-btn">
+        <span>搜索</span>
+        <span nz-icon nzType="search" nzTheme="outline"></span>
+      </button>
+      <!-- <nz-button-group>
+        <button nz-button (click)="openDialog(1)">登录</button>
+        <button nz-button (click)="openDialog(0)">注册</button>
+
+      </nz-button-group> -->
+      <nz-badge [nzCount]="messageobj.total" [nzShowDot]="messageobj.total > 0">
+        <span
+          nz-icon
+          nzType="notification"
+          class="notification"
+          nzTheme="fill"
+          nz-dropdown
+          [nzDropdownMenu]="messageNotice"
+        ></span>
+      </nz-badge>
+      <nz-avatar
+        nzSize="large"
+        nzIcon="user"
+        class="avatar"
+        [nzSrc]="userInfo.avatarUrl"
+        nz-dropdown
+        [nzDropdownMenu]="loginMenu"
+      ></nz-avatar>
+      <ng-template #logined>
+        <span nz-icon nzType="notification" nzTheme="outline"></span>
+        <nz-avatar nzSize="large" nzIcon="user"></nz-avatar>
+      </ng-template>
+    </div>
+  </div>
+</header>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="customeModalTitle"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzFooter]="null"
+  [nzAutofocus]="null"
+>
+  <ng-container *nzModalContent>
+    <app-register
+      *ngIf="modalType === 0"
+      (modalTypeChange)="changeModalType($event)"
+    ></app-register>
+    <app-login
+      *ngIf="modalType === 1"
+      (modalTypeChange)="changeModalType($event)"
+    ></app-login>
+    <app-reset-password
+      *ngIf="modalType === 2"
+      (modalTypeChange)="changeModalType($event)"
+    ></app-reset-password>
+  </ng-container>
+</nz-modal>
+
+<ng-template #customeModalTitle>{{ modalTitle }}</ng-template>
+
+<nz-dropdown-menu #messageNotice="nzDropdownMenu">
+  <ul nz-menu nzSelectable class="menu">
+    <li nz-menu-item>
+      <nz-badge [nzCount]="messageobj.reply" [nzShowDot]="messageobj.total > 0">
+        <span>回复我的</span>
+      </nz-badge>
+    </li>
+    <li nz-menu-item>
+      <nz-badge
+        [nzCount]="messageobj.likePost"
+        [nzShowDot]="messageobj.total > 0"
+      >
+        <span>赞了我文章的</span>
+      </nz-badge>
+    </li>
+    <li nz-menu-item>
+      <nz-badge
+        [nzCount]="messageobj.downloadAttachment"
+        [nzShowDot]="messageobj.total > 0"
+      >
+        <span>下载了我的附件的</span>
+      </nz-badge>
+    </li>
+    <li nz-menu-item>
+      <nz-badge
+        [nzCount]="messageobj.likePost"
+        [nzShowDot]="messageobj.total > 0"
+      >
+        <span>赞了我的评论的</span>
+      </nz-badge>
+    </li>
+    <li nz-menu-item>
+      <nz-badge [nzCount]="messageobj.sys" [nzShowDot]="messageobj.total > 0">
+        <span>系统消息</span>
+      </nz-badge>
+    </li>
+  </ul>
+
+  <nz-dropdown-menu #loginMenu="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+      <li nz-menu-item>我的主页</li>
+      <li nz-menu-item>退出</li>
+    </ul>
+  </nz-dropdown-menu>

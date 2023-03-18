@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { api } from '../login/login.component';
-import { MODAL_TYPE } from 'src/app/header/header.type';
+import { MODAL_TYPE } from 'src/app/components/header/header.type';
 import {
   formMessage,
   validatorNumber,

@@ -23,13 +23,15 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { RegisterComponent } from './forms/register/register.component';
-import { LoginComponent } from './forms/login/login.component';
-import { ResetPasswordComponent } from './forms/reset-password/reset-password.component';
-import { CheckCodeComponent } from './forms/check-code/check-code.component';
-import { UserInfoComponent } from './forms/user-info/user-info.component';
+import { HomeComponent } from './pages/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { RegisterComponent } from './components/forms/register/register.component';
+import { LoginComponent } from './components/forms/login/login.component';
+import { ResetPasswordComponent } from './components/forms/reset-password/reset-password.component';
+import { CheckCodeComponent } from './components/forms/check-code/check-code.component';
+import { UserInfoComponent } from './components/forms/user-info/user-info.component';
+import { UserCenterComponent } from './pages/user-center/user-center.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const icons: IconDefinition[] = [
   PlusOutline,
@@ -53,6 +55,8 @@ const icons: IconDefinition[] = [
     ResetPasswordComponent,
     CheckCodeComponent,
     UserInfoComponent,
+    UserCenterComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,16 @@
+<div class="footer">
+  <div nz-row>
+    <div nz-col nzSpan="6">
+      <div class="logo-letter">
+        <!-- 标题logo -->
+          <span *ngFor="let item of logoInfo" [style.color]="item.color">{{
+            item.letter
+          }}</span>
+      </div>
+      <div class="info">一个干货满满的编程社区</div>
+    </div>
+    <div nz-col nzSpan="6">col-6</div>
+    <div nz-col nzSpan="6">col-6</div>
+    <div nz-col nzSpan="6">col-6</div>
+  </div>
+</div>

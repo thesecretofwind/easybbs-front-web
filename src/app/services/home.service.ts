@@ -36,7 +36,7 @@ export class HomeService {
   }
 
   getMessageCount() {
-    return this.post<HttpResult<MessageCount>>(API.MESSAGE_COUNT, null);
+    return this.post<HttpResult<MessageCount>>(API.MESSAGE_COUNT, {});
   }
 
   register(params: Register) {

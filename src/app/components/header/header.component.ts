@@ -3,12 +3,12 @@ import { MODAL_TYPE, Title } from './header.type';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RegisterComponent } from '../forms/register/register.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { UserStateService } from '../services/user-state.service';
-import { UserState } from '../type';
-import { HomeService } from '../services/home.service';
-import { HttpResult, MessageCount } from '../services/http.type';
+import { UserStateService } from '../../services/user-state.service';
+import { UserState } from '../../type';
+import { HomeService } from '../../services/home.service';
+import { HttpResult, MessageCount } from '../../services/http.type';
 
-const titleList: Title[] = [
+export const titleList: Title[] = [
   {
     letter: 'E',
     color: 'rgb(50, 133, 255)'
@@ -74,6 +74,9 @@ export class HeaderComponent implements OnInit {
       this.userInfo = user;
       this.home.getMessageCount().subscribe((res: HttpResult<MessageCount>) => {
         const { data } = res;
+        if (!data) {
+          return;
+        }
         this.messageobj = data;
       });
     });
