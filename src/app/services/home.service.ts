@@ -28,7 +28,7 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   loadHeaderBoard() {
-    return this.http.get<IHeaderBoard>(API.HEADER_BOARD);
+    return this.http.get<HttpResult<IHeaderBoard[]>>(API.HEADER_BOARD);
   }
 
   sendEmailCode<T>(params: VertifyEmailCode) {

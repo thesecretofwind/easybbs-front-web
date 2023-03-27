@@ -11,3 +11,22 @@
   margin-top: 10px;
   color: #8a919f;
 }
+
+.title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.about {
+  a { 
+    line-height: 25px;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--text2);
+  }
+
+  img {
+    width: 100px;
+    text-align: center;
+  }
+}

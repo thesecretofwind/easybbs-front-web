@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
-import { IHeaderBoard } from '../../services/http.type';
+import { HttpResult, IHeaderBoard } from '../../services/http.type';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private home: HomeService) { }
 
   ngOnInit(): void {
-    this.home.loadHeaderBoard().subscribe( (item: IHeaderBoard) => {
+    this.home.loadHeaderBoard().subscribe( (item: HttpResult<IHeaderBoard[]>) => {
       console.log(item);
 
     })

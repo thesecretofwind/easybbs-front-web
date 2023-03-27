@@ -6,7 +6,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { UserStateService } from '../../services/user-state.service';
 import { UserState } from '../../type';
 import { HomeService } from '../../services/home.service';
-import { HttpResult, MessageCount } from '../../services/http.type';
+import { HttpResult, IHeaderBoard, MessageCount } from '../../services/http.type';
+import { Observable } from 'rxjs';
 
 export const titleList: Title[] = [
   {
@@ -61,12 +62,13 @@ export class HeaderComponent implements OnInit {
     sys: 0,
     total: 0,
   };
+  navArr!: IHeaderBoard[];
 
   constructor(
     private modal: NzModalService,
     private viewContainerRef: ViewContainerRef,
     private userStateService: UserStateService,
-    private home: HomeService
+    public home: HomeService
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +81,12 @@ export class HeaderComponent implements OnInit {
         }
         this.messageobj = data;
       });
+    });
+    this.home.loadHeaderBoard().subscribe((res: HttpResult<IHeaderBoard[]>) => {
+      const {status, data} = res;
+      if (status === 'success') {
+        this.navArr = data;
+      }
     });
   }
 

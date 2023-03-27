@@ -3,14 +3,31 @@
     <div nz-col nzSpan="6">
       <div class="logo-letter">
         <!-- 标题logo -->
-          <span *ngFor="let item of logoInfo" [style.color]="item.color">{{
-            item.letter
-          }}</span>
+        <span *ngFor="let item of logoInfo" [style.color]="item.color">{{
+          item.letter
+        }}</span>
       </div>
       <div class="info">一个干货满满的编程社区</div>
     </div>
-    <div nz-col nzSpan="6">col-6</div>
-    <div nz-col nzSpan="6">col-6</div>
-    <div nz-col nzSpan="6">col-6</div>
+    <div nz-col nzSpan="6">
+      <div class="title">网站相关</div>
+      <div class="about">
+        <div><a href="">常见问题</a></div>
+        <div><a href="">规章制度</a></div>
+        <div><a href="">免责申明</a></div>
+      </div>
+    </div>
+    <div nz-col nzSpan="6">
+      <div class="title">友情链接</div>
+      <div class="about">
+        <div><a href="">友情链接</a></div>
+      </div>
+    </div>
+    <div nz-col nzSpan="6">
+      <div class="title">关注站长</div>
+      <div class="about">
+        <img src="../../../assets/images/like.png" alt="关注站长">
+      </div>
+    </div>
   </div>
 </div>

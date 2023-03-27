@@ -9,6 +9,17 @@
           item.letter
         }}</span>
       </a>
+      <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item nzMatchRouter *ngFor="let item of navArr">
+          <a [routerLink]="[item.boardId, 'components', 'menu', 'en']">{{item.boardName}}</a>
+        </li>
+        <!-- <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/', 'components', 'menu', 'en']">English Menu Document</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/', 'components', 'menu', 'zh']">Chinese Menu Document</a>
+        </li> -->
+      </ul>
     </div>
     <div class="user-info-panel">
       <button nz-button nzType="primary">
