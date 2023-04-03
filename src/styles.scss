@@ -11,6 +11,11 @@ ul {
   list-style: none;
 }
 
+.sub-board {
+  display: flex;
+  padding: 10px 0;
+}
+
 :root {
   --text1: #9499A0;
   --text2: #61666d;

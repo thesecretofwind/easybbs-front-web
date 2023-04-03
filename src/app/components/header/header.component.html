@@ -11,7 +11,26 @@
       </a>
       <ul nz-menu nzMode="horizontal">
         <li nz-menu-item nzMatchRouter *ngFor="let item of navArr">
-          <a [routerLink]="[item.boardId, 'components', 'menu', 'en']">{{item.boardName}}</a>
+          <a
+            [routerLink]="[item.boardId, 'components', 'menu', 'en']"
+            nz-popover
+            [nzPopoverContent]="contentTemplate"
+            nzPopoverPlacement="bottom"
+            nzPopoverTrigger="hover"
+            >{{ item.boardName }}</a
+          >
+          <ng-template #contentTemplate>
+            <div class="sub-board-list">
+              <a href="" *ngFor="let tag of item.children" class="sub-board">{{
+                tag.boardName
+              }}</a>
+              <div class="empty" *ngIf="item.children.length === 0">
+                 <!-- <nz-empty></nz-empty> -->
+                 暂无数据
+              </div>
+
+            </div>
+          </ng-template>
         </li>
         <!-- <li nz-menu-item nzMatchRouter>
           <a [routerLink]="['/', 'components', 'menu', 'en']">English Menu Document</a>
@@ -131,3 +150,4 @@
       <li nz-menu-item>退出</li>
     </ul>
   </nz-dropdown-menu>
+</nz-dropdown-menu>

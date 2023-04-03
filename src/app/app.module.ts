@@ -32,6 +32,7 @@ import { CheckCodeComponent } from './components/forms/check-code/check-code.com
 import { UserInfoComponent } from './components/forms/user-info/user-info.component';
 import { UserCenterComponent } from './pages/user-center/user-center.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BoardContentComponent } from './components/board-content/board-content.component';
 
 const icons: IconDefinition[] = [
   PlusOutline,
@@ -57,6 +58,7 @@ const icons: IconDefinition[] = [
     UserInfoComponent,
     UserCenterComponent,
     FooterComponent,
+    BoardContentComponent,
   ],
   imports: [
     BrowserModule,
