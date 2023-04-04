@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { MODAL_TYPE, Title } from './header.type';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RegisterComponent } from '../forms/register/register.component';
@@ -46,6 +46,7 @@ export const titleList: Title[] = [
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @Input()  navArr!: IHeaderBoard[];
   logoInfo = titleList;
   isVisible = false;
   modalTitle = '登录';
@@ -62,7 +63,6 @@ export class HeaderComponent implements OnInit {
     sys: 0,
     total: 0,
   };
-  navArr!: IHeaderBoard[];
 
   constructor(
     private modal: NzModalService,
@@ -82,12 +82,12 @@ export class HeaderComponent implements OnInit {
         this.messageobj = data;
       });
     });
-    this.home.loadHeaderBoard().subscribe((res: HttpResult<IHeaderBoard[]>) => {
-      const {status, data} = res;
-      if (status === 'success') {
-        this.navArr = data;
-      }
-    });
+    // this.home.loadHeaderBoard().subscribe((res: HttpResult<IHeaderBoard[]>) => {
+    //   const {status, data} = res;
+    //   if (status === 'success') {
+    //     this.navArr = data;
+    //   }
+    // });
   }
 
   showModal(): void {
