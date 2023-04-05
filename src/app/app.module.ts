@@ -34,6 +34,10 @@ import { UserCenterComponent } from './pages/user-center/user-center.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BoardContentComponent } from './components/board-content/board-content.component';
 
+// ngrx模块
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store';
+
 const icons: IconDefinition[] = [
   PlusOutline,
   SearchOutline,
@@ -69,6 +73,7 @@ const icons: IconDefinition[] = [
     AppRoutingModule,
     SharedModule,
     NzIconModule.forChild(icons),
+    StoreModule.forRoot(reducers, {}),
   ],
   providers: [],
   bootstrap: [AppComponent],

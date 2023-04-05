@@ -9,7 +9,7 @@ const routes: Routes = [
     component: BoardContentComponent
   },
   {
-    path: 'forum/:id',
+    path: 'forum/:boardId',
     component: BoardContentComponent
   }
 ];

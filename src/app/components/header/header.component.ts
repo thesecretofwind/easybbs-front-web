@@ -8,6 +8,10 @@ import { UserState } from '../../type';
 import { HomeService } from '../../services/home.service';
 import { HttpResult, IHeaderBoard, MessageCount } from '../../services/http.type';
 import { Observable } from 'rxjs';
+import { AppState } from 'src/app/store';
+import { Store, select } from '@ngrx/store';
+import { userInfoAction } from 'src/app/store/actions/userInfo.action';
+import { selectUserInfo } from 'src/app/store/selectors/userInfo.selector';
 
 export const titleList: Title[] = [
   {
@@ -49,6 +53,7 @@ export class HeaderComponent implements OnInit {
   @Input()  navArr!: IHeaderBoard[];
   logoInfo = titleList;
   isVisible = false;
+  isLogin = false;
   modalTitle = '登录';
   modalType: MODAL_TYPE = MODAL_TYPE.REGISTER;
   userInfo: UserState = {
@@ -68,7 +73,8 @@ export class HeaderComponent implements OnInit {
     private modal: NzModalService,
     private viewContainerRef: ViewContainerRef,
     private userStateService: UserStateService,
-    public home: HomeService
+    public home: HomeService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +87,13 @@ export class HeaderComponent implements OnInit {
         }
         this.messageobj = data;
       });
+      this.store.pipe(select(selectUserInfo)).subscribe( (userId: string) => {
+        if (userId) {
+          this.isLogin = true;
+          return;
+        }
+        this.isLogin = false;
+      })
     });
     // this.home.loadHeaderBoard().subscribe((res: HttpResult<IHeaderBoard[]>) => {
     //   const {status, data} = res;

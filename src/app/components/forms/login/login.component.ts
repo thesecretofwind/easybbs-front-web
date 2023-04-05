@@ -6,6 +6,10 @@ import { HomeService } from 'src/app/services/home.service';
 import { HttpResult } from 'src/app/services/http.type';
 import { Login, LoginResult } from 'src/app/type';
 import { formMessage, validatorNumber } from '../validator-rules';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store';
+import { userInfoAction } from 'src/app/store/actions/userInfo.action';
 
 
 export const api = {
@@ -24,7 +28,8 @@ export class LoginComponent implements OnInit {
   passwordVisible = false;
   isLoading: boolean = false;
   checkCode: string = api.checkCode;
-  constructor(private fb: FormBuilder, private message: NzMessageService, private home: HomeService) { }
+  userObservable!: Observable<string>;
+  constructor(private fb: FormBuilder, private message: NzMessageService, private home: HomeService, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -54,6 +59,7 @@ export class LoginComponent implements OnInit {
         const {status, info, code, data} = res;
         if (status === 'success') {
           this.message.success(info);
+          this.store.dispatch(userInfoAction({userId: data.userId}))
         }
         // TODO:登录成功后的处理
       })
