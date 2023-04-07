@@ -35,6 +35,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+
 const moduleArr = [
   NzButtonModule,
   NzLayoutModule,
@@ -60,6 +62,7 @@ const moduleArr = [
   NzPopconfirmModule,
   NzSpinModule,
   NzBreadCrumbModule,
+  NzNotificationModule,
 ];
 
 @NgModule({
