@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import {  MODAL_TYPE } from 'src/app/components/header/header.type';
+import {  MODAL_TYPE } from 'src/app/types/header.type';
 import { HomeService } from 'src/app/services/home.service';
-import { HttpResult } from 'src/app/services/http.type';
-import { Login, LoginResult } from 'src/app/type';
-import { formMessage, validatorNumber } from '../validator-rules';
+import { HttpResult } from 'src/app/types/http.type';
+import { Login, LoginResult } from 'src/app/types/type';
+import { formMessage, validatorNumber } from '../../../types/validator-rules';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';

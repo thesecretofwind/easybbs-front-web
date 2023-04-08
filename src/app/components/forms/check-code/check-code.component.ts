@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { api } from '../login/login.component';
-import { formMessage, validatorNumber } from '../validator-rules';
+import { formMessage, validatorNumber } from '../../../types/validator-rules';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

@@ -15,14 +15,14 @@ import {
 } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { api } from '../login/login.component';
-import { MODAL_TYPE } from 'src/app/components/header/header.type';
+import { MODAL_TYPE } from 'src/app/types/header.type';
 import {
   formMessage,
   validatorNumber,
   validatorPassword,
-} from '../validator-rules';
-import { EmailCodeType, ResetPassword, ResetPasswordResult } from 'src/app/type';
-import { HttpResult } from 'src/app/services/http.type';
+} from '../../../types/validator-rules';
+import { EmailCodeType, ResetPassword, ResetPasswordResult } from 'src/app/types/type';
+import { HttpResult } from 'src/app/types/http.type';
 import { HomeService } from 'src/app/services/home.service';
 import { CheckCodeComponent } from '../check-code/check-code.component';
 import { NzMessageService } from 'ng-zorro-antd/message';

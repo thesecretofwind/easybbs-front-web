@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IHeaderBoard } from 'src/app/services/http.type';
+import { IHeaderBoard } from 'src/app/types/http.type';
 
 @Component({
   selector: 'app-board-content',

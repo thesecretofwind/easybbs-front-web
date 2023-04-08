@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { boardAction } from "../actions/board.action";
-import { IHeaderBoard } from "src/app/services/http.type";
+import { IHeaderBoard } from "src/app/types/http.type";
 
 export interface State {
   boards: IHeaderBoard[];

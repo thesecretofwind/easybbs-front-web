@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
-import { HttpResult, IHeaderBoard } from '../../services/http.type';
+import { HttpResult, IHeaderBoard } from '../../types/http.type';
 import { AppState } from 'src/app/store';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';

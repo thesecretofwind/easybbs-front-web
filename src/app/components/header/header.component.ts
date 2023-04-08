@@ -1,16 +1,12 @@
 import { Component, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { MODAL_TYPE, Title } from './header.type';
+import { MODAL_TYPE, Title } from '../../types/header.type';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { RegisterComponent } from '../forms/register/register.component';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { UserStateService } from '../../services/user-state.service';
-import { UserState } from '../../type';
+import { UserState } from '../../types/type';
 import { HomeService } from '../../services/home.service';
-import { HttpResult, IHeaderBoard, MessageCount } from '../../services/http.type';
-import { Observable } from 'rxjs';
+import { HttpResult, IHeaderBoard, MessageCount } from '../../types/http.type';
 import { AppState } from 'src/app/store';
 import { Store, select } from '@ngrx/store';
-import { userInfoAction } from 'src/app/store/actions/userInfo.action';
 import { selectUserInfo } from 'src/app/store/selectors/userInfo.selector';
 
 export const titleList: Title[] = [

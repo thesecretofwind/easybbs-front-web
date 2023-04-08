@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpResult, IHeaderBoard, MessageCount } from './http.type';
-import { Login, LoginResult, Register, ResetPassword, ResetPasswordResult, VertifyEmailCode } from '../type';
+import { HttpResult, IHeaderBoard, MessageCount } from '../types/http.type';
+import { Login, LoginResult, Register, ResetPassword, ResetPasswordResult, VertifyEmailCode } from '../types/type';
 
 const headerBoardUrl = "api/board/loadBoard";
 

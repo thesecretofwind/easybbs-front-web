@@ -37,6 +37,8 @@ import { BoardContentComponent } from './components/board-content/board-content.
 // ngrx模块
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store';
+import { ArticleListComponent } from './components/article-list/article-list.component';
+import { ArticleComponent } from './components/article/article.component';
 
 const icons: IconDefinition[] = [
   PlusOutline,
@@ -63,6 +65,8 @@ const icons: IconDefinition[] = [
     UserCenterComponent,
     FooterComponent,
     BoardContentComponent,
+    ArticleListComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,
