@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-article-list',
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss']
 })
-export class ArticleListComponent implements OnInit {
+export class ArticleListComponent implements OnInit, OnChanges {
   @Input() pageNo?: number
   @Input() pBoardId ?: number;
   @Input() boardId!: number;
@@ -15,5 +15,10 @@ export class ArticleListComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    
+  }
+
 
 }

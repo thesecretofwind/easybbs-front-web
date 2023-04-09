@@ -1,10 +1,25 @@
 <p>board-content works!</p>
 <div class="sub-board">
   <div class="board-item">
-    <a [routerLink]="'/forum/' + boardId" routerLinkActive [routerLinkActiveOptions]="{exact: true}">全部</a>
+    <a
+      [routerLink]="'/forum/' + boardId"
+      routerLinkActive
+      [routerLinkActiveOptions]="{ exact: true }"
+      >全部</a
+    >
   </div>
   <div class="board-tiem" *ngFor="let item of tags">
-    <a [routerLink]="'/forum/' + boardId + '/' + item.boardId" routerLinkActive [routerLinkActiveOptions]="{exact: true}">{{ item.boardName}}</a>
+    <a
+      [routerLink]="'/forum/' + boardId + '/' + item.boardId"
+      routerLinkActive
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ item.boardName }}</a
+    >
   </div>
 </div>
-<app-article-list></app-article-list>
+<app-article-list
+  [pageNo]="pageNo"
+  [pBoardId]="pBoardId"
+  [boardId]="boardId"
+  [orderType]="orderType"
+></app-article-list>

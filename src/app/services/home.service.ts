@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpResult, IHeaderBoard, MessageCount } from '../types/http.type';
+import { HttpResult, IHeaderBoard, MessageCount, Board, ArticleList } from '../types/http.type';
 import { Login, LoginResult, Register, ResetPassword, ResetPasswordResult, VertifyEmailCode } from '../types/type';
 
 const headerBoardUrl = "api/board/loadBoard";
@@ -14,6 +14,7 @@ const httpOptions = {
 const API = {
   SEND_EMAIL: '/api/sendEmailCode',
   HEADER_BOARD: 'api/board/loadBoard',
+  LOAD_ARTICLE: '/api/forum/loadArticle',
   MESSAGE_COUNT: 'api/ucenter/getMessageCount',
   REGISTER: '/register',
   LOGIN: '/login',
@@ -29,6 +30,10 @@ export class HomeService {
 
   loadHeaderBoard() {
     return this.http.get<HttpResult<IHeaderBoard[]>>(API.HEADER_BOARD);
+  }
+
+  loadArticle(data: Board) {
+    return this.post<HttpResult<ArticleList>>(API.LOAD_ARTICLE, data)
   }
 
   sendEmailCode<T>(params: VertifyEmailCode) {

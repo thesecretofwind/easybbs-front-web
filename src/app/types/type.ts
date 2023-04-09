@@ -37,12 +37,5 @@ export interface LoginResult {
   isAdmin: boolean;
 }
 
-export interface Board {
-  pageNo: number;
-  pBoardId: number;
-  boardId: number;
-  orderType: number;
-}
-
 export type ResetPassword = Login;
 export type ResetPasswordResult = LoginResult;
